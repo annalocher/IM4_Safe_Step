@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#2563EB" />
+  <title>SafeSteps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="device">
+  <div id="app" class="app">
+
+   
+    <section id="view-splash" class="view">
+      <div class="splash">
+        <div class="splash__logo"><span data-icon="shield"></span></div>
+        <div class="splash__title">SafeSteps</div>
+        <div class="splash__claim">Schützt jeden Schritt</div>
+        <div class="splash__dots"><span></span><span></span><span></span></div>
+        <div class="splash__foot">Intelligentes Kindersicherheits-System</div>
+      </div>
+    </section>
+
+   
+    <section id="view-login" class="view" hidden>
+      <div class="login">
+        <div class="login__brand">
+          <div class="login__logo"><span data-icon="shield"></span></div>
+          <div class="login__title">SafeSteps</div>
+          <div class="login__sub" id="login-sub">Melde dich an, um fortzufahren</div>
+        </div>
+
+        <div class="login__error" id="login-error">
+          <span data-icon="alert-triangle"></span>
+          <span id="login-error-text">E-Mail oder Passwort ist falsch.</span>
+        </div>
+
+        <form class="form" id="login-form" novalidate>
+          <label class="field">
+            <span class="field__label">E-Mail</span>
+            <input class="input" id="login-email" type="email" autocomplete="username" placeholder="name@beispiel.ch" />
+          </label>
+          <label class="field">
+            <span class="field__label">Passwort</span>
+            <input class="input" id="login-password" type="password" autocomplete="current-password" placeholder="••••••••" />
+          </label>
+          <button class="btn btn--primary btn--block" id="login-submit" type="submit" style="margin-top:6px">Anmelden</button>
+        </form>
+        <button type="button" class="login__switch" id="auth-switch">Noch kein Konto? <strong>Registrieren</strong></button>
+      </div>
+    </section>
+
+    <section id="view-home" class="view" hidden>
+      <div class="appbar appbar__home">
+        <div class="appbar__logo"><span data-icon="shield"></span></div>
+        <div class="appbar__titles">
+          <div class="appbar__title">SafeSteps</div>
+          <div class="appbar__sub">Kindersicherheit</div>
+        </div>
+        <button class="appbar__gear" id="nav-settings" aria-label="Einstellungen"><span data-icon="settings"></span></button>
+      </div>
+
+      <div class="scroll">
+        <div class="home-top">
+          <div id="home-banner"><!-- Status-Banner per JS --></div>
+        </div>
+
+        <div class="home-body">
+          <div class="section-title">Schnellaktionen</div>
+          <div class="quick">
+            <button class="quick__card" id="nav-zones">
+              <div class="tile tile--amber"><span data-icon="map-pin"></span></div>
+              <div class="quick__name">Zonen</div>
+              <div class="quick__desc">Alle Zonen ansehen</div>
+            </button>
+            <button class="quick__card" id="nav-activity">
+              <div class="tile tile--purple"><span data-icon="activity"></span></div>
+              <div class="quick__name">Aktivität</div>
+              <div class="quick__desc">Letzte Ereignisse</div>
+            </button>
+          </div>
+
+          <button class="system-card" id="system-card">
+            <div class="tile"><span data-icon="shield"></span></div>
+            <div>
+              <div class="system-card__title" id="system-title">3 Zonen aktiv</div>
+              <div class="system-card__sub" id="system-sub">Alle Sensoren sind verbunden und überwachen</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <nav class="tabbar">
+        <button class="tab tab--active" data-tab="home"><span data-icon="shield"></span>Start</button>
+        <button class="tab" data-tab="zones"><span data-icon="map-pin"></span>Zonen</button>
+        <button class="tab" data-tab="activity"><span data-icon="activity"></span>Aktivität</button>
+      </nav>
+    </section>
+
+    
+    <section id="view-zones" class="view" hidden>
+      <div class="appbar subbar">
+        <button class="iconbtn" data-back="home" aria-label="Zurück"><span data-icon="arrow-left"></span></button>
+        <div class="subbar__title subbar__title--amber">Zonen verwalten</div>
+      </div>
+      <div class="scroll"><div class="list-body" id="zone-list"><!-- Zonen per JS --></div></div>
+    </section>
+
+
+    <section id="view-zone-edit" class="view" hidden>
+      <div class="appbar subbar">
+        <button class="iconbtn" data-back="zones" aria-label="Zurück"><span data-icon="arrow-left"></span></button>
+        <div class="subbar__title subbar__title--green" id="zone-edit-title">Neue Zone</div>
+        <div class="subbar__spacer"></div>
+        <button class="btn btn--primary btn--pill" id="zone-save">Speichern</button>
+      </div>
+      <div class="scroll" style="padding:20px">
+        <div class="panel">
+          <div class="panel__title">Zonen-Information</div>
+          <label class="panel__label">Zonenname *</label>
+          <input class="input" id="zone-name" placeholder="z.B. Balkon" />
+          <div class="panel__hint">Gib der Zone einen klaren, erkennbaren Namen</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="view-activity" class="view" hidden>
+      <div class="appbar subbar">
+        <button class="iconbtn" data-back="home" aria-label="Zurück"><span data-icon="arrow-left"></span></button>
+        <div class="subbar__title subbar__title--purple">Aktivitätsverlauf</div>
+      </div>
+      <div class="scroll">
+        <div class="panel" style="margin:20px 20px 4px">
+          <div class="panel__title">Auslösungen (letzte 7 Tage)</div>
+          <div class="chart" id="activity-chart"><!-- per JS --></div>
+        </div>
+        <div class="timeline" id="activity-list"><!-- per JS --></div>
+      </div>
+    </section>
+
+
+    <section id="view-settings" class="view" hidden>
+      <div class="appbar subbar">
+        <button class="iconbtn" data-back="home" aria-label="Zurück"><span data-icon="arrow-left"></span></button>
+        <div class="subbar__title">Einstellungen</div>
+      </div>
+      <div class="scroll" style="padding:20px">
+        <div class="panel">
+          <div class="panel__title">Profil</div>
+          <div class="set-label"><span data-icon="user"></span>Name Elternteil</div>
+          <input class="input" id="set-parent" />
+          <div class="set-label" style="margin-top:14px"><span data-icon="smile"></span>Name des Kindes</div>
+          <input class="input" id="set-child" />
+        </div>
+
+        <div class="panel">
+          <span class="panel__title panel__title--ul">Sensor-Einstellungen</span>
+          <div class="range-row" style="margin-top:16px">
+            <span style="font-weight:600">Bewegungs-Empfindlichkeit</span>
+            <span class="range-val" id="sens-val">75%</span>
+          </div>
+          <input type="range" id="set-sensitivity" min="0" max="100" value="75" />
+          <div class="panel__hint">Höhere Empfindlichkeit erkennt kleinere Bewegungen</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__title">Benachrichtigungen</div>
+          <div class="toggle-row">
+            <div class="toggle-row__ic"><span data-icon="bell"></span></div>
+            <div class="toggle-row__txt">
+              <div class="toggle-row__name">Push-Benachrichtigungen</div>
+              <div class="toggle-row__desc">Sofortige Alarme erhalten</div>
+            </div>
+            <label class="switch"><input type="checkbox" id="set-push" /><span class="switch__track"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-row__ic"><span data-icon="volume"></span></div>
+            <div class="toggle-row__txt">
+              <div class="toggle-row__name">Ton-Alarme</div>
+              <div class="toggle-row__desc">Alarmtöne abspielen</div>
+            </div>
+            <label class="switch"><input type="checkbox" id="set-sound" /><span class="switch__track"></span></label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-alert" class="view" hidden>
+      <div class="alert-screen">
+        <button class="alert-screen__back" data-back="home" aria-label="Zurück"><span data-icon="arrow-left"></span></button>
+        <div class="alert-screen__center">
+          <div class="alert-screen__circle"><span data-icon="alert-triangle"></span></div>
+          <div class="alert-screen__title">Bewegung erkannt</div>
+          <div class="alert-screen__zone" id="alert-zone">in: Treppe</div>
+          <div class="alert-screen__time" id="alert-time">vor wenigen Sek.</div>
+        </div>
+        <button class="alert-screen__dismiss" id="alert-dismiss">Schliessen</button>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script src="api.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
