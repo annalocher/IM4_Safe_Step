@@ -36,6 +36,16 @@ Passwörter gehasht (bcrypt), alle Abfragen als prepared statements, Login-Pflic
 (PHP-Sessions), `session_regenerate_id()` beim Login, Geräte-Auth über `api_key`.
 
 ## Learnings
+- **Zweiter PIR-Sensor gegen Fehlalarme (verworfen):** Ursprünglich wollten wir ein
+  Gerät mit zwei PIR-Sensoren bauen. Der zweite Sensor sollte etwas höher montiert
+  werden: Betritt ein Erwachsener den Raum, würde er — weil er grösser ist — auch vom
+  oberen Sensor erfasst, ein Kind dagegen nur vom unteren. So wollten wir Fehlalarme
+  ausschliessen, wenn ein Erwachsener vorbeigeht. Wir haben die Idee verworfen, und
+  das ergibt Sinn: PIR-Sensoren messen keine Höhe zuverlässig, ihre Erfassungsbereiche
+  sind breit und überlappen stark. Eine verlässliche Unterscheidung „Erwachsener vs.
+  Kind" allein über die Montagehöhe war damit nicht realistisch — der Mehraufwand an
+  Hardware und Logik hätte das Ergebnis nicht sicher genug gemacht. Deshalb blieb es
+  bei **einem PIR-Sensor pro Gerät**.
 - **Trennung Frontend/Backend:** Dank `api.js` als einziger Datenquelle konnten wir
   zuerst mit Mock-Daten entwickeln und das Backend später mit einem Schnitt anbinden.
 - **Wo Daten leben:** Zonen gehören in die Datenbank, nicht in die Firmware.
@@ -57,4 +67,4 @@ Passwörter gehasht (bcrypt), alle Abfragen als prepared statements, Login-Pflic
 Das Projekt zeigte, wie viel hinter einem scheinbar einfachen „Sensor piept" steckt:
 Gerät, sicherer Server, Datenbank und verständliche App. Am meisten gelernt haben wir
 an den **Schnittstellen** zwischen den Teilen — dort lagen auch die kniffligsten Fehler.
-Mit Mock-Daten zu starten war goldrichtig. 
+Mit Mock-Daten zu starten war goldrichtig.
